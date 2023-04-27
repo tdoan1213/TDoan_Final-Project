@@ -1,5 +1,4 @@
 # File by Tim Doan
-#test comment 
 
 '''
 Game Overview:
@@ -32,21 +31,21 @@ class Game:
         pg.init()
         pg.mixer.init()
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
-        pg.display.set_caption("my game")
+        pg.display.set_caption("Final Project")
         self.clock = pg.time.Clock()
         self.running = True
         print(self.screen)
-def new(self):
+    def new(self):
     # starting a new game 
-    self.score = 0
+        self.score = 0
 
-    self.all_sprites = pg.sprite.Group()
-    # self.borders = pg.sprite.Group()
-    # self.ball = pg.sprite.Group()
+        self.all_sprites = pg.sprite.Group()
+        # self.borders = pg.sprite.Group()
+        # self.ball = pg.sprite.Group()
 
-    self.player = Player(self)
+        self.player = Player(self)
 
-    self.all_sprites.add(self.player)
+        self.all_sprites.add(self.player)
 
     def run(self):
         self.playing = True
@@ -70,14 +69,6 @@ def new(self):
         self.screen.fill(WHITE)
         self.all_sprites.draw(self.screen)
         pg.display.flip()
-    def draw_text(self, text, size, color, x, y):
-        font_name = pg.font.match_font('arial')
-        font = pg.font.Font(font_name, size)
-        text_surface = font.render(text, True, color)
-        text_rect = text_surface.get_rect()
-        text_rect.midtop = (x,y)
-        self.screen.blit(text_surface, text_rect)
-    # def draw_text():
 
     def get_mouse_now(self):
         x,y = pg.mouse.get_pos()
@@ -86,7 +77,7 @@ def new(self):
 g = Game()
 
 while g.running:
-    g
+    g.new()
 
 pg.quit()
 
