@@ -22,7 +22,7 @@ class Player(Sprite):
         self.vel = vec(0,0)
         self.acc = vec(0,0)
         self.confric = 0.1
-
+# keyboard commands 
     def input(self):
         keystate = pg.key.get_pressed()
         if keystate[pg.K_w]:
