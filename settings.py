@@ -1,8 +1,8 @@
 # File by Tim Doan  
 
 # screen dimensions
-WIDTH = 500
-HEIGHT = 500
+WIDTH = 1000
+HEIGHT = 750
 
 # colors
 BLACK = (0,0,0)
@@ -21,3 +21,9 @@ PAUSED = False
 PLAYER_ACC = 0.88
 PLAYER_FRICTION = -1
 PLAYER_GRAV = 0.8
+
+# wall settings
+WALL_LIST = [((0, 0, 25, 750, BLACK, "left")), (WIDTH - 25, 0, 25, 750, BLACK, "right")]
+
+# roof settings
+ROOF_LIST = [((0, 0, 1000, 25, BLACK, "top")), (0, HEIGHT - 25, 1000, 25, BLACK, "bottom")]
