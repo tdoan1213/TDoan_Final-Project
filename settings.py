@@ -7,6 +7,7 @@ HEIGHT = 750
 # colors
 BLACK = (0,0,0)
 WHITE = (255,255,255)
+GRAY = (128,128,128)
 BLUE = (50,50,255)
 RED = (255,50,50)
 GREEN = (0,255,0)
@@ -17,10 +18,6 @@ RUNNING = True
 SCORE = 0
 PAUSED = False
 
-# player settings
-PLAYER_ACC = 0.88
-PLAYER_FRICTION = -1
-PLAYER_GRAV = 0.8
 
 # wall settings
 WALL_LIST = [((0, 0, 25, 750, BLACK, "left")), (WIDTH - 25, 0, 25, 750, BLACK, "right")]

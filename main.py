@@ -1,6 +1,7 @@
 # File created by: Tim Doan
 
 # import libs
+from time import sleep
 import pygame as pg
 import os
 # import settings 
@@ -32,12 +33,13 @@ class Game:
         self.walls = pg.sprite.Group()
         self.roofs = pg.sprite.Group()
 
-        self.playerL = PlayerL(self)
-        self.playerR = PlayerR(self)
+        self.playerL = Player(self, 1, WIDTH - 150, HEIGHT/2, BLACK)
+        self.playerR = Player(self, 2, 150, HEIGHT/2, BLACK)
         self.wall1 = Wall(WIDTH, 50, 0, HEIGHT, (200,250,200), "left")
         self.wall2 = Wall(WIDTH, 50, 0, HEIGHT, (200,250,200), "right")
         self.roof1 = Roof(WIDTH, 150, 0, HEIGHT, (200,250,200), "top")
         self.roof2 = Roof(WIDTH, 150, 0, HEIGHT, (200,250,200), "bottom")
+        self.ball = Ball(WIDTH/2, HEIGHT/2, 50, 50, WHITE)
 
         self.all_sprites.add(self.playerL)
         self.all_sprites.add(self.playerR)
@@ -45,6 +47,7 @@ class Game:
         self.all_sprites.add(self.wall2)
         self.all_sprites.add(self.roof1)
         self.all_sprites.add(self.roof2)
+        self.all_sprites.add(self.ball)
 
         # self.playerL.add(self.playerL)
         # self.playerR.add(self.playerR)
@@ -62,6 +65,7 @@ class Game:
             r = Roof(*roof)
             self.all_sprites.add(r)
             self.walls.add(r)
+
         self.run()
     def run(self):
         self.playing = True
@@ -79,36 +83,35 @@ class Game:
                 self.running = False
 
     def update(self):
+        # player bounds
         self.all_sprites.update()
-        if self.playerR.pos.y:
+        if self.playerL.pos.y:
+            self.playerL.vel.y = 0
+        if self.playerL.pos.y:
             self.playerR.vel.y = 0
-        # if self.playerL.pos.y < 25:
-        #     hits = pg.sprite.spritecollide(self.playerL, self.roofs, False)
-        #     self.playerL.vel.y = 0
-        #     print("I hit the top!")
-        if self.playerR.pos.y == 175:
+        if self.playerR.pos.y <= 175:
             hits = pg.sprite.spritecollide(self.playerR, self.roofs, False)
-            self.playerR.vel.y = 0
+            self.playerR.pos.y = 175
             print("I hit the top!")
-        if self.playerR.pos.y == 725:
+        if self.playerL.pos.y <= 175:
             hits = pg.sprite.spritecollide(self.playerR, self.roofs, False)
-            self.playerR.vel.y = 0
+            self.playerL.pos.y = 175
+            print("I hit the top!")
+        if self.playerR.pos.y >= 725:
+            hits = pg.sprite.spritecollide(self.playerR, self.roofs, False)
+            self.playerR.pos.y = 725
             print("I hit the bottom!")
-
-        # if self.player.pos.x < 75:
-        #     hits = pg.sprite.spritecollide(self.player, self.walls, False)
-        #     self.player.vel.x = 1
-        #     print("left wall")
-        # if self.player.pos.x > 725:
-        #     hits = pg.sprite.spritecollide(self.player, self.walls, False)
-        #     self.player.vel.x = -1
-        #     print("right wall")
-
-
+        if self.playerL.pos.y >= 725:
+            hits = pg.sprite.spritecollide(self.playerR, self.roofs, False)
+            self.playerL.pos.y = 725
+            print("I hit the bottom!")
+        # ball hitting player bounds
+        bhits = pg.sprite.collide_rect(self.ball, self.playerR) or pg.sprite.collide_rect(self.ball, self.playerL)
+        if bhits:
+            self.ball.vel.x *= -1
     def draw(self):
-        self.screen.fill(WHITE)
+        self.screen.fill(GRAY)
         self.all_sprites.draw(self.screen)
-        # is this a method or a function?
         pg.display.flip()
     def draw_text(self, text, size, color, x, y):
         font_name = pg.font.match_font('arial')
