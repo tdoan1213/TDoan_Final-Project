@@ -1,7 +1,6 @@
 # File created by: Tim Doan
 
 # import libs
-from time import sleep
 import pygame as pg
 import os
 # import settings 
@@ -28,7 +27,7 @@ class Game:
     def new(self):
         # starting a new game
         self.score = 0
-
+        # adds players, ball, walls, and roofs
         self.all_sprites = pg.sprite.Group()
         self.walls = pg.sprite.Group()
         self.roofs = pg.sprite.Group()
@@ -54,17 +53,18 @@ class Game:
         self.roofs.add(self.roof1)
         self.roofs.add(self.roof2)
         
-
+        # adds both walls on screen
         for wall in WALL_LIST:
             w = Wall(*wall)
             self.all_sprites.add(w)
             self.walls.add(w)
+        # adds both roofs on screen
         for roof in ROOF_LIST:
             r = Roof(*roof)
             self.all_sprites.add(r)
             self.walls.add(r)
-
         self.run()
+    # runs the game functions when game is open
     def run(self):
         self.playing = True
         while self.playing:
@@ -72,14 +72,14 @@ class Game:
             self.events()
             self.update()
             self.draw()
-    
+    # closes the game.
     def events(self):
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 if self.playing:
                     self.playing = False
                 self.running = False
-
+    # bounds for player and ball
     def update(self):
         # player bounds
         self.all_sprites.update()
@@ -103,10 +103,12 @@ class Game:
         bhits = pg.sprite.collide_rect(self.ball, self.playerR) or pg.sprite.collide_rect(self.ball, self.playerL)
         if bhits:
             self.ball.vel.x *= -1
+    # filling the background screen green 
     def draw(self):
         self.screen.fill(GRAY)
         self.all_sprites.draw(self.screen)
         pg.display.flip()
+    # score keeper (in progress)
     def draw_text(self, text, size, color, x, y):
         font_name = pg.font.match_font('arial')
         font = pg.font.Font(font_name, size)
@@ -115,9 +117,6 @@ class Game:
         text_rect.midtop = (x,y)
         self.screen.blit(text_surface, text_rect)
         pg.display.update()
-    def get_mouse_now(self):
-        x,y = pg.mouse.get_pos()
-        return (x,y)
 
 # instantiate the game class...
 g = Game()

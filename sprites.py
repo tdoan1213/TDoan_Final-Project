@@ -1,3 +1,6 @@
+# File created by: Tim Doan
+
+# imported libraries 
 import pygame as pg
 from time import sleep
 from pygame.sprite import Sprite
@@ -7,12 +10,12 @@ from random import randint
 
 vec = pg.math.Vector2
 
-# player classes
+# player class
 class Player(Sprite):
     def __init__(self, game, p1p2, x, y, color):
         Sprite.__init__(self)
         self.game = game
-        self.image = pg.Surface((25,150))
+        self.image = pg.Surface((20,100))
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH/4, HEIGHT/2)
         self.pos = vec(x,y)
@@ -20,21 +23,21 @@ class Player(Sprite):
         self.acc = vec(0,0)
         self.cofric = 0.1
         self.p1p2 = p1p2
-
+# keybinds for left player 
     def inputA(self):
         keystate = pg.key.get_pressed()
         if keystate[pg.K_w]:
             self.vel.y = -10
         if keystate[pg.K_s]:
             self.vel.y = 10
-
+# keybinds for right player
     def inputB(self):
         keystate = pg.key.get_pressed()
         if keystate[pg.K_i]:
             self.vel.y = -10
         if keystate[pg.K_k]:
             self.vel.y = 10 
-
+# differentiates the player binds
     def update(self):
         self.acc.x = 0
         if self.p1p2 == 1:
@@ -44,7 +47,7 @@ class Player(Sprite):
         self.vel += self.acc
         self.pos += self.vel + 0.5 * self.acc
         self.rect.midbottom = self.pos
-
+# ball class
 class Ball(Sprite):
     def __init__(self,x,y,width,height, color):
         Sprite.__init__(self)
@@ -58,10 +61,10 @@ class Ball(Sprite):
         self.rect.y = y
         self.rect.center = (WIDTH/4, HEIGHT/2)
         self.pos = vec(WIDTH/2, HEIGHT/2)
-        self.vel = vec(5)
+        self.vel = vec(7)
         self.acc = vec(1,1)
         self.cofric = 0.01
-
+# bounds for ball
     def inbounds(self):
         if self.rect.x > WIDTH - 75:
             self.vel.x *= -1
@@ -83,7 +86,7 @@ class Ball(Sprite):
         self.inbounds()
         self.pos += self.vel
         self.rect.center = self.pos
-
+# wall class
 class Wall(Sprite):
     def __init__(self, x, y, width, height, color, variant):
         Sprite.__init__(self)
@@ -95,7 +98,7 @@ class Wall(Sprite):
         self.rect.x = x
         self.rect.y = y
         self.variant = variant
-
+# roof class
 class Roof(Sprite):
     def __init__(self, x, y, width, height, color, variant):
         Sprite.__init__(self)
