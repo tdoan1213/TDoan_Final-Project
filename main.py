@@ -21,7 +21,7 @@ class Game:
         pg.init()
         pg.mixer.init()
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
-        pg.display.set_caption("Final Project")
+        pg.display.set_caption("Pong")
         self.clock = pg.time.Clock()
         self.running = True
         print(self.screen)
@@ -35,10 +35,10 @@ class Game:
 
         self.playerL = Player(self, 1, WIDTH - 150, HEIGHT/2, BLACK)
         self.playerR = Player(self, 2, 150, HEIGHT/2, BLACK)
-        self.wall1 = Wall(WIDTH, 50, 0, HEIGHT, (200,250,200), "left")
-        self.wall2 = Wall(WIDTH, 50, 0, HEIGHT, (200,250,200), "right")
-        self.roof1 = Roof(WIDTH, 150, 0, HEIGHT, (200,250,200), "top")
-        self.roof2 = Roof(WIDTH, 150, 0, HEIGHT, (200,250,200), "bottom")
+        self.wall1 = Wall(WIDTH, 50, 0, HEIGHT, (255,255,255), "left")
+        self.wall2 = Wall(WIDTH, 50, 0, HEIGHT, (255,255,255), "right")
+        self.roof1 = Roof(WIDTH, 150, 0, HEIGHT, (255,255,255), "top")
+        self.roof2 = Roof(WIDTH, 150, 0, HEIGHT, (255,255,255), "bottom")
         self.ball = Ball(WIDTH/2, HEIGHT/2, 50, 50, WHITE)
 
         self.all_sprites.add(self.playerL)
@@ -49,8 +49,6 @@ class Game:
         self.all_sprites.add(self.roof2)
         self.all_sprites.add(self.ball)
 
-        # self.playerL.add(self.playerL)
-        # self.playerR.add(self.playerR)
         self.walls.add(self.wall1)
         self.walls.add(self.wall2)
         self.roofs.add(self.roof1)
@@ -92,19 +90,15 @@ class Game:
         if self.playerR.pos.y <= 175:
             hits = pg.sprite.spritecollide(self.playerR, self.roofs, False)
             self.playerR.pos.y = 175
-            print("I hit the top!")
         if self.playerL.pos.y <= 175:
             hits = pg.sprite.spritecollide(self.playerR, self.roofs, False)
             self.playerL.pos.y = 175
-            print("I hit the top!")
         if self.playerR.pos.y >= 725:
             hits = pg.sprite.spritecollide(self.playerR, self.roofs, False)
             self.playerR.pos.y = 725
-            print("I hit the bottom!")
         if self.playerL.pos.y >= 725:
             hits = pg.sprite.spritecollide(self.playerR, self.roofs, False)
             self.playerL.pos.y = 725
-            print("I hit the bottom!")
         # ball hitting player bounds
         bhits = pg.sprite.collide_rect(self.ball, self.playerR) or pg.sprite.collide_rect(self.ball, self.playerL)
         if bhits:
@@ -120,6 +114,7 @@ class Game:
         text_rect = text_surface.get_rect()
         text_rect.midtop = (x,y)
         self.screen.blit(text_surface, text_rect)
+        pg.display.update()
     def get_mouse_now(self):
         x,y = pg.mouse.get_pos()
         return (x,y)

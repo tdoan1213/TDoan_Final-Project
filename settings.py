@@ -20,7 +20,7 @@ PAUSED = False
 
 
 # wall settings
-WALL_LIST = [((0, 0, 25, 750, BLACK, "left")), (WIDTH - 25, 0, 25, 750, BLACK, "right")]
+WALL_LIST = [((0, 0, 25, 750, WHITE, "left")), (WIDTH - 25, 0, 25, 750, WHITE, "right")]
 
 # roof settings
-ROOF_LIST = [((0, 0, 1000, 25, BLACK, "top")), (0, HEIGHT - 25, 1000, 25, BLACK, "bottom")]
+ROOF_LIST = [((0, 0, 1000, 25, WHITE, "top")), (0, HEIGHT - 25, 1000, 25, WHITE, "bottom")]

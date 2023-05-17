@@ -1,4 +1,5 @@
 import pygame as pg
+from time import sleep
 from pygame.sprite import Sprite
 from settings import *
 from random import randint
@@ -10,10 +11,8 @@ vec = pg.math.Vector2
 class Player(Sprite):
     def __init__(self, game, p1p2, x, y, color):
         Sprite.__init__(self)
-        # these are the properties
         self.game = game
         self.image = pg.Surface((25,150))
-        # self.image.fill(RED)
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH/4, HEIGHT/2)
         self.pos = vec(x,y)
@@ -37,7 +36,6 @@ class Player(Sprite):
             self.vel.y = 10 
 
     def update(self):
-        # self.acc = vec(0, PLAYER_GRAV)
         self.acc.x = 0
         if self.p1p2 == 1:
             self.inputB()
@@ -60,7 +58,7 @@ class Ball(Sprite):
         self.rect.y = y
         self.rect.center = (WIDTH/4, HEIGHT/2)
         self.pos = vec(WIDTH/2, HEIGHT/2)
-        self.vel = vec(7)
+        self.vel = vec(5)
         self.acc = vec(1,1)
         self.cofric = 0.01
 
@@ -68,9 +66,11 @@ class Ball(Sprite):
         if self.rect.x > WIDTH - 75:
             self.vel.x *= -1
             self.acc = self.vel * -self.cofric
+            sleep(3)
             self.pos = (WIDTH/2, HEIGHT/2)
         if self.rect.x < 25:
             self.vel.x *= -1
+            sleep(3)
             self.pos = (WIDTH/2, HEIGHT/2)
             self.acc = self.vel * -self.cofric
         if self.rect.y < 25:
@@ -81,8 +81,6 @@ class Ball(Sprite):
             self.acc = self.vel * -self.cofric
     def update(self):
         self.inbounds()
-        # self.pos.x += self.vel.x
-        # self.pos.y += self.vel.y
         self.pos += self.vel
         self.rect.center = self.pos
 
